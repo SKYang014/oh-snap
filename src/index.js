@@ -1,3 +1,6 @@
+//You can think of the index.js file as the main entry point for the application. 
+//The ReactDOM library is rendering the App component at the root element 
+//in the HTML. You can find the HTML by navigating to the public folder.
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
