@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import Modal from '../Modal';
 
 const PhotoList = ({ category }) => {
+    const [currentPhoto, setCurrentPhoto] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [photos] = useState([
         {
@@ -105,15 +108,36 @@ const PhotoList = ({ category }) => {
     //currentPhotos. Then we can map the currentPhotos array to render each photo 
     //that matches the category selected by the user.
     const currentPhotos = photos.filter((photo) => photo.category === category);
+    //Here we updated the current photo state using the setCurrentPhoto function 
+    //with the data retrieved through the click event. Notice how we used the 
+    //spread operator here to add the index: i key value pair to the current photo
+    // state. Because currentPhoto now contains the two critical data points 
+    //needed for the modal, we can pass in currentPhoto as a prop to the Modal
+    const toggleModal = (image, i) => {
+        setCurrentPhoto({ ...image, index: i });
+        setIsModalOpen(!isModalOpen);
+    }
 
+    // current photo
     return (
         <div>
+            {/* The preceding statement will only render the Modal if the value 
+            isModalOpen is true, */}
+            {isModalOpen && <Modal currentPhoto={currentPhoto} onClose={toggleModal} />}
             <div className="flex-row">
                 {currentPhotos.map((image, i) => (
+                    //Note that we added the event listener attribute to each 
+                    //<img> element in each category and assigned the toggleModal 
+                    //function to handle the click event. We passed in the current
+                    // image and i as arguments. The image object represents the 
+                    //element in the photos array, and the i will render the image
+                    // as we did previously in the src attribute with the require 
+                    //function.
                     <img
                         src={require(`../../assets/small/${category}/${i}.jpg`)}
                         alt={image.name}
                         className="img-thumbnail mx-1"
+                        onClick={() => toggleModal(image, i)}
                         key={image.name}
                     />
                 ))}

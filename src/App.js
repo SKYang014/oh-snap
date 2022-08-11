@@ -23,18 +23,42 @@ function App() {
 
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
+  //In the preceding expression, we set the initial value of contactSelected 
+  //to false. This is to prevent the contact form from showing when a user 
+  //initially navigates to the homepage. The Gallery will display instead, 
+  //which is the first thing Lyza's customers will want to see.
+  const [contactSelected, setContactSelected] = useState(false);
   return (
     <div>
+      {/* Passing the getter and setter functions into the Nav component will 
+      allow this component to modify the state in the App component, which will
+      conditionally render based on the user's selection. */}
       <Nav
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
       ></Nav>
       <main>
         <div>
-          <ContactForm></ContactForm>
-          <Gallery currentCategory={currentCategory}></Gallery>
-          <About></About>
+          {/* Notice the <> and </> that wrap the Gallery and About components. 
+          They are called React fragments—a shorthand abbreviation for 
+          <React.Fragment></React.Fragment>.
+
+          They're a useful tool in React to allow multiple elements to be grouped
+          together. Although in JSX you can only return a single parent element, 
+          this rule can be satisfied by wrapping the children components in a 
+          React fragment. This also allows you to wrap elements without creating 
+           extra DOM nodes, like wrapping with a <div> would do. */}
+          {!contactSelected ? (
+            <>
+              <Gallery currentCategory={currentCategory}></Gallery>
+              <About></About>
+            </>
+          ) : (
+            <ContactForm></ContactForm>
+          )}
         </div>
       </main>
     </div>

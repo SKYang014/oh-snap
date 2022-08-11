@@ -26,6 +26,8 @@ function Nav(props) {
         categories = [],
         setCurrentCategory,
         currentCategory,
+        contactSelected,
+        setContactSelected
     } = props;
     //Notice in the  code block that the first argument is the callback
     // function, and the second argument is an array with a single element, 
@@ -47,12 +49,12 @@ function Nav(props) {
             <nav>
                 <ul className="flex-row">
                     <li className="mx-2">
-                        <a data-testid="about" href="#about">
+                        <a data-testid="about" href="#about" onClick={() => setContactSelected(false)}>
                             About me
                         </a>
                     </li>
-                    <li className="mx-2">
-                        <span>Contact</span>
+                    <li className={`mx-2 ${contactSelected && 'navActive'}`}>
+                        <span onClick={() => setContactSelected(true)}>Contact</span>
                     </li>
                     {/* Rather than setting up event listeners with VanillaJS,  */}
                     {/* //though, we'll use the built-in onClick() method. */}
@@ -62,14 +64,14 @@ function Nav(props) {
                             //currentCategory.name === category.name will get evaluated, 
                             //and as long as it is true, then the second bit of the short 
                             //circuit, navActive, will be returned.
-                            className={`mx-1 ${currentCategory.name === category.name && 'navActive'
+                            className={`mx-1 ${currentCategory.name === category.name && !contactSelected && `navActive`
                                 }`}
                             key={category.name}
                         >
-                            <span
-                                onClick={() => {
-                                    setCurrentCategory(category)
-                                }}
+                            <span onClick={() => {
+                                setCurrentCategory(category);
+                                setContactSelected(false);
+                            }}
                             >
                                 {capitalizeFirstLetter(category.name)}
                             </span>
