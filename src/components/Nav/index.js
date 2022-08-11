@@ -27,7 +27,7 @@ function Nav(props) {
         setCurrentCategory,
         currentCategory,
     } = props;
-    //Notice in the preceding code block that the first argument is the callback
+    //Notice in the  code block that the first argument is the callback
     // function, and the second argument is an array with a single element, 
     //currentCategory. The second argument directs the hook to re-render the 
     //component on changes to the value of this state. In other words, if 
