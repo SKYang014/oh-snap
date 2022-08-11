@@ -12,7 +12,7 @@ function Modal({ onClose, currentPhoto }) {
                 <h3 className="modalTitle">{name}</h3>
                 <img src={require(`../../assets/large/${category}/${index}.jpg`)} alt="current category" />
                 <p>
-                    Photo Description
+                    {description}
                 </p>
                 <button onClick={onClose} type="button">
                     Close this modal
